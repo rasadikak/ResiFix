@@ -12,13 +12,13 @@ export enum Priority {
 @Schema({ timestamps: true })
 export class ComplaintTitle {
   @Prop({ required: true, unique: true, trim: true })
-  title: string; // e.g. "Leaking Tap", "Elevator Malfunction"
+  title!: string; // e.g. "Leaking Tap", "Elevator Malfunction"
 
   @Prop({ type: Types.ObjectId, ref: 'Section', required: true })
-  sectionId: Types.ObjectId; // which section this title routes to
+  sectionId!: Types.ObjectId; // which section this title routes to
 
   @Prop({ required: true, enum: Priority, default: Priority.MEDIUM })
-  defaultPriority: Priority;
+  defaultPriority!: Priority;
   // ASSUMPTION: priority is set here as a default per title, and copied onto
   // the Complaint when created. Admin can still override it per-complaint
   // afterward (see `priority` field on Complaint below).

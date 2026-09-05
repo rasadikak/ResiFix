@@ -22,19 +22,19 @@ const CommentSchema = {
 @Schema({ timestamps: true })
 export class Complaint {
   @Prop({ type: Types.ObjectId, ref: 'ComplaintTitle', required: true })
-  titleId: Types.ObjectId;
+  titleId!: Types.ObjectId;
 
   @Prop({ required: true })
-  description: string;
+  description!: string;
 
   @Prop([String])
-  photos: string[]; // Cloudinary URLs from resident's submission
+  photos!: string[]; // Cloudinary URLs from resident's submission
 
   @Prop([String])
-  afterPhotos: string[]; // Cloudinary URLs added by section on resolution
+  afterPhotos!: string[]; // Cloudinary URLs added by section on resolution
 
   @Prop({ required: true })
-  block: string;
+  block!: string;
 
   @Prop()
   floor?: string;
@@ -43,25 +43,25 @@ export class Complaint {
   unit?: string;
 
   @Prop({ type: Types.ObjectId, ref: 'User', required: true })
-  reportedBy: Types.ObjectId;
+  reportedBy!: Types.ObjectId;
 
   @Prop({ type: Types.ObjectId, ref: 'Section', required: true })
-  sectionId: Types.ObjectId; // set at creation by the routing engine
+  sectionId!: Types.ObjectId; // set at creation by the routing engine
 
   @Prop({ required: true, enum: ComplaintStatus, default: ComplaintStatus.OPEN })
-  status: ComplaintStatus;
+  status!: ComplaintStatus;
 
   // ASSUMPTION: escalation is a separate boolean, not a status value —
   // so a complaint can be "in_progress" AND "escalated" at the same time,
   // rather than escalation replacing its actual workflow state.
   @Prop({ default: false })
-  isEscalated: boolean;
+  isEscalated!: boolean;
 
   @Prop({ required: true, enum: Priority })
-  priority: Priority; // copied from ComplaintTitle.defaultPriority at creation, Admin can override
+  priority!: Priority; // copied from ComplaintTitle.defaultPriority at creation, Admin can override
 
   @Prop()
-  slaDeadline: Date; // calculated at creation: createdAt + SlaConfig.resolutionHours
+  slaDeadline!: Date; // calculated at creation: createdAt + SlaConfig.resolutionHours
 
   @Prop()
   resolvedAt?: Date;
@@ -70,7 +70,7 @@ export class Complaint {
   rating?: number; // resident's post-resolution rating
 
   @Prop([CommentSchema])
-  comments: (typeof CommentSchema)[];
+  comments!: (typeof CommentSchema)[];
 }
 
 export const ComplaintSchema = SchemaFactory.createForClass(Complaint);

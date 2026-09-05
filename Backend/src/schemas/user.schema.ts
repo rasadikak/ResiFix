@@ -12,19 +12,19 @@ export enum UserRole {
 @Schema({ timestamps: true })
 export class User {
   @Prop({ required: true, trim: true })
-  name: string;
+  name!: string;
 
   @Prop({ required: true, unique: true, lowercase: true, trim: true })
-  email: string;
+  email!: string;
 
   @Prop({ required: true })
-  passwordHash: string;
+  passwordHash!: string;
 
   @Prop({ trim: true })
   phone?: string;
 
   @Prop({ required: true, enum: UserRole, default: UserRole.RESIDENT })
-  role: UserRole;
+  role!: UserRole;
 
   // --- Resident-only fields ---
   @Prop()
